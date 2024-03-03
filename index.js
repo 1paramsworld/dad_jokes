@@ -3,6 +3,7 @@ const app=express()
 const path=require("path");
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+const port = process.env.PORT || 3000; // Use port from environment variable or default to 3000
 
 const uipath=path.join(__dirname)
 app.set("view engine","ejs")
@@ -24,4 +25,4 @@ app.post("/newquote",(req,res)=>{
     res.redirect("/")
 })
 
-app.listen(3000)
+app.listen(port)
