@@ -15,6 +15,8 @@ app.get("/",(req,res)=>{
         return data.json()
     }).then((data)=>{
         res.render("ui",{hey1:data.attachments[0].fallback})
+    }).catch(()=>{
+        res.end("something is wrong")
     })
 })
 
