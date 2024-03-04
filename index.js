@@ -12,17 +12,15 @@ const uipath = path.join(__dirname);
 app.set("view engine", "ejs");
 app.set("views", uipath);
 
-app.get("/", (req, res) => {
-    // const url = "https://icanhazdadjoke.com/slack";
-    // fetch(url)
-    //     .then((data) => data.json())
-    //     .then((data) => {
-    //         res.render("ui", { hey1: data.attachments[0].fallback });
-    //     })
-    //     .catch(() => {
-    //         res.end("something is wrong");
-    //     });
-    res.end("hey param")
+app.get("/", async (req, res) => {
+    try {
+        const response = await fetch("https://icanhazdadjoke.com/slack");
+        const data = await response.json();
+        res.render("ui", { hey1: data.attachments[0].fallback });
+    } catch (error) {
+        console.error("Error fetching dad joke:", error);
+        res.status(500).send("Something went wrong");
+    }
 });
 
 app.post("/newquote", (req, res) => {
